@@ -1,0 +1,34 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="js-BtnContainer">
+  
+</div>
+<script>
+function render($container, state) {
+    const activeCls     = (state.isActive) ? ' is-active' : '';
+    const activeTxt     = (state.isActive) ? 'On' : 'Off';
+    const componentHTML =
+        '<button class="SlideBtn js-SlideBtn' + activeCls + '">'
+        + '<span class="SlideBtn-label visuallyhidden">' + activeTxt + '</span>'
+        + '<span class="SlideBtn-knob"></span>'
+        + '</button>';
+    $container.html(componentHTML);
+    $container.find('.js-SlideBtn').on('click', () => {
+        setState($container, state, {isActive: !state.isActive});
+    });
+    return $container;
+}
+
+function setState($container, oldState, stateChanges) {
+    const newState = Object.assign(oldState, stateChanges);
+    render($container, newState);
+    return newState;
+}
+
+function init() {
+    const state      = {isActive: 1};
+    const $container = $('.js-BtnContainer');
+    render($container, state);
+}
+
+init();
+</script>
